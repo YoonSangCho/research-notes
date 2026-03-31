@@ -738,7 +738,306 @@ multimodal LLM의 핵심 연구 질문은 다음과 같다.
 핵심적으로 보면, multimodal learning은 “여러 modality를 어떻게 연결할 것인가”의 문제에서 출발했고, LLM은 “언어를 어떻게 대규모로 모델링하고 정렬할 것인가”의 문제에서 출발했다. 최신 연구는 이 두 흐름이 합쳐져, **멀티모달 입력을 이해하고, 외부 지식을 검색하며, 사람의 지시를 따르고, 복합 추론을 수행하는 foundation model**로 수렴하고 있다.
 
 ---
+# Part 1 (Advanced Extension). Multimodal Learning: Theory and Modern Practice
 
+## Chapter 17. Information-Theoretic Foundations
+
+멀티모달 학습은 서로 다른 modality가 공유하는 정보를 최대화하고, 불필요한 modality-specific 노이즈를 최소화하는 문제로 해석할 수 있다. 이를 정보이론적으로 표현하면 Mutual Information(MI) 최대화 문제로 볼 수 있다.
+
+```math
+I(X^{(1)}; X^{(2)}) = \mathbb{E}_{p(x^{(1)},x^{(2)})}\left[\log \frac{p(x^{(1)},x^{(2)})}{p(x^{(1)})p(x^{(2)})}\right]
+```
+
+- $p(x^{(1)},x^{(2)})$: 두 modality의 결합 분포  
+- $p(x^{(1)})p(x^{(2)})$: 독립 가정 하의 분포  
+- MI는 두 변수 간 공유 정보량  
+
+representation 관점에서는 다음을 목표로 한다.
+
+```math
+\max I(z^{(1)}; z^{(2)})
+```
+
+즉, 서로 다른 modality의 latent representation이 공통 의미를 최대한 공유하도록 학습한다.
+
+---
+
+## Chapter 18. Contrastive Learning as MI Estimation
+
+InfoNCE loss는 MI의 하한(lower bound)을 근사한다.
+
+```math
+\mathcal{L}_{InfoNCE} = - \mathbb{E}\left[\log \frac{\exp(\text{sim}(z_i^{(a)},z_i^{(b)})/\tau)}{\sum_{j}\exp(\text{sim}(z_i^{(a)},z_j^{(b)})/\tau)}\right]
+```
+
+- $z_i^{(a)}, z_i^{(b)}$: positive pair  
+- $z_j^{(b)}$: negative samples  
+- $\tau$: temperature  
+
+이때 다음 관계가 성립한다.
+
+```math
+I(X;Y) \geq \log N - \mathcal{L}_{InfoNCE}
+```
+
+즉, loss를 최소화하는 것은 mutual information을 최대화하는 것과 연결된다. CLIP, ALIGN 등 대부분의 multimodal foundation model은 이 원리를 기반으로 한다.
+
+---
+
+## Chapter 19. Multimodal Objective Decomposition
+
+실제 multimodal 학습은 단일 목적함수가 아니라 여러 목적의 결합이다.
+
+```math
+\min_{\theta} \mathcal{L}_{task} + \lambda_1 \mathcal{L}_{align} + \lambda_2 \mathcal{L}_{reg}
+```
+
+- $\mathcal{L}_{task}$: supervised loss (classification, regression)  
+- $\mathcal{L}_{align}$: modality alignment (contrastive, CCA 등)  
+- $\mathcal{L}_{reg}$: regularization 또는 consistency  
+
+이 구조는 다음 의미를 가진다.
+
+- task 성능을 유지하면서  
+- modality 간 의미 정렬을 동시에 수행  
+
+---
+
+## Chapter 20. Modality Gap and Distribution Mismatch
+
+멀티모달 학습에서 중요한 문제는 modality 간 분포 차이이다.
+
+```math
+d = \| z^{(1)} - z^{(2)} \|
+```
+
+이 거리 또는 분포 차이가 클수록 alignment가 어려워진다. 특히 다음 상황에서 문제가 심각해진다.
+
+- 이미지 vs 텍스트 (semantic abstraction level 차이)
+- 센서 vs 이미지 (noise 구조 차이)
+- 임상 데이터 vs 영상 (scale 차이)
+
+이를 해결하기 위한 접근은 다음과 같다.
+
+- shared latent space learning  
+- adversarial domain alignment  
+- contrastive learning  
+- distribution matching  
+
+---
+
+## Chapter 21. Optimal Transport for Multimodal Alignment
+
+Optimal transport는 두 분포를 직접 정렬하는 방법이다.
+
+```math
+\min_{\gamma} \sum_{i,j} \gamma_{ij} c(x_i, y_j)
+```
+
+- $\gamma_{ij}$: transport plan  
+- $c(x_i, y_j)$: cost function  
+
+이 접근은 sample-level이 아닌 distribution-level alignment를 수행한다는 점에서 contrastive learning과 보완적인 관계를 가진다.
+
+---
+
+## Chapter 22. Multimodal Generalization and Domain Shift
+
+멀티모달 환경에서도 domain shift는 중요한 문제다.
+
+```math
+P_{train}(x^{(m)}) \neq P_{test}(x^{(m)})
+```
+
+문제 유형:
+
+- covariate shift  
+- modality-specific shift  
+- missing modality  
+
+대표 해결 방법:
+
+- domain invariant representation  
+- IRM (Invariant Risk Minimization)  
+- GroupDRO  
+
+---
+
+## Chapter 23. Causal Perspective in Multimodal Learning
+
+최근 multimodal learning에서도 causal inference가 중요한 주제로 등장한다.
+
+기존 모델:
+
+```math
+P(Y|X)
+```
+
+causal 모델:
+
+```math
+P(Y|do(X))
+```
+
+- $do(X)$: intervention  
+
+멀티모달에서의 핵심 질문:
+
+- 어떤 modality가 causal인가  
+- 어떤 modality가 confounder인가  
+- spurious correlation을 어떻게 제거할 것인가  
+
+---
+
+# Part 2 (Advanced Extension). Large Language Models
+
+## Chapter 24. Probabilistic View of Language Models
+
+LLM은 확률분포를 학습하는 모델이다.
+
+```math
+P(x_1,\dots,x_T)=\prod_{t=1}^{T}P(x_t|x_{<t})
+```
+
+이는 chain rule을 적용한 결과이며, language modeling을 autoregressive prediction 문제로 바꾼다.
+
+---
+
+## Chapter 25. Token Distribution and Softmax
+
+모델의 출력은 logits $z_i$로 표현되며, softmax를 통해 확률로 변환된다.
+
+```math
+P_i = \frac{\exp(z_i)}{\sum_j \exp(z_j)}
+```
+
+temperature가 적용되면:
+
+```math
+P_i = \frac{\exp(z_i/T)}{\sum_j \exp(z_j/T)}
+```
+
+- $T$가 작으면: sharp distribution  
+- $T$가 크면: flat distribution  
+
+---
+
+## Chapter 26. Decoding Strategies
+
+Beam search:
+
+```math
+\max \sum_{t} \log P(x_t|x_{<t})
+```
+
+Sampling 기반 방법:
+
+- top-k sampling  
+- nucleus sampling  
+
+trade-off:
+
+- deterministic vs diversity  
+
+---
+
+## Chapter 27. Hallucination and Uncertainty
+
+LLM은 확률 기반 모델이므로 사실이 아닌 출력도 생성할 수 있다.
+
+```math
+\hat{y} \sim P_\theta(y|x)
+```
+
+문제 원인:
+
+- training distribution bias  
+- knowledge limitation  
+- over-generalization  
+
+해결 접근:
+
+- RAG  
+- calibration  
+- uncertainty modeling  
+
+---
+
+## Chapter 28. Alignment and RLHF
+
+LLM alignment는 인간 선호를 반영하는 최적화 문제다.
+
+```math
+\max_{\theta} \mathbb{E}_{y \sim \pi_\theta}[r(y)]
+```
+
+- $r(y)$: reward model  
+
+RLHF 단계:
+
+- supervised fine-tuning  
+- reward model 학습  
+- policy optimization  
+
+---
+
+## Chapter 29. Scaling Law
+
+```math
+L(N) \propto N^{-\alpha}
+```
+
+- $N$: 데이터 크기  
+- $\alpha$: scaling exponent  
+
+의미:
+
+- 데이터와 모델이 커질수록 성능이 power-law로 개선됨  
+
+---
+
+## Chapter 30. Multimodal LLM Integration
+
+최신 AI 시스템은 multimodal과 LLM이 통합된 형태다.
+
+```math
+y = f(x^{text}, x^{image}, x^{audio}, \mathcal{K})
+```
+
+- $\mathcal{K}$: external knowledge  
+
+구성 요소:
+
+- perception (vision/audio encoder)  
+- reasoning (LLM)  
+- memory (retrieval system)  
+
+---
+
+## Chapter 31. Unified Perspective
+
+전체 흐름은 다음과 같이 정리된다.
+
+```text
+Multimodal Representation → Alignment → Transformer → LLM → RLHF → RAG → Multimodal LLM
+```
+
+핵심 개념:
+
+- representation learning  
+- alignment  
+- generation  
+- reasoning  
+
+---
+
+# Additional References
+
+- Poole et al., "On Variational Bounds of Mutual Information", ICML 2019  
+- Gutmann & Hyvärinen, "Noise Contrastive Estimation", 2010  
+- Arjovsky et al., "Invariant Risk Minimization", 2019  
+- Peyré & Cuturi, "Computational Optimal Transport", 2019  
+- Kaplan et al., "Scaling Laws for Neural Language Models", 2020  
 # References
 
 ## Multimodal Learning
