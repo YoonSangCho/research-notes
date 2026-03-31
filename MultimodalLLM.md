@@ -443,281 +443,7 @@ Multimodal learning의 핵심 흐름은 다음처럼 정리할 수 있다.
 
 즉, 이 분야는 단순한 feature concatenation에서 출발해, 이제는 reasoning-capable multimodal foundation model로 발전했다.
 
----
-
-# Part 2. Large Language Models (LLMs)
-
-## Chapter 8. Language Modeling Fundamentals
-
-### 8.1 What Is a Language Model?
-
-언어 모델의 기본 목표는 토큰 시퀀스의 확률분포를 모델링하는 것이다. 길이가 $T$인 시퀀스 $x_1,\dots,x_T$에 대해 전체 확률은 chain rule을 이용하여 다음과 같이 분해할 수 있다.
-
-```math
-P(x_1,\dots,x_T)=\prod_{t=1}^{T}P(x_t\mid x_{1:t-1})
-```
-
-각 항의 의미는 다음과 같다.
-
-- $x_t$: $t$번째 토큰
-- $x_{1:t-1}$: $x_1, x_2, \dots, x_{t-1}$ (즉, $t$ 이전 모든 토큰)
-- $P(x_t\mid x_{1:t-1})$: 앞선 문맥이 주어졌을 때 다음 토큰이 나올 조건부 확률
-
-이 식은 autoregressive language model의 기초가 된다. 즉, 언어 생성은 “이전 토큰들을 보고 다음 토큰을 예측하는 문제”로 바뀐다.
-
-### 8.2 Training Objective
-
-언어 모델은 보통 negative log-likelihood를 최소화하도록 학습된다.
-
-```math
-\mathcal{L}_{LM} = -\sum_{t=1}^{T}\log P(x_t\mid x_{1:t-1})
-```
-
-- 로그를 쓰는 이유: 확률의 곱을 합으로 바꿔 수치적으로 안정적이고 최적화가 쉬워짐
-- 마이너스를 붙이는 이유: 확률을 최대화하는 문제를 loss 최소화 문제로 바꾸기 위함
-
-즉, 모델이 정답 토큰에 높은 확률을 할당할수록 loss가 작아진다.
-
----
-
-## Chapter 9. Transformer Architecture
-
-### 9.1 Why Transformer?
-
-RNN과 LSTM은 시퀀스 처리가 가능하지만, 긴 문맥을 병렬적으로 처리하기 어렵고 long-range dependency 학습에 제약이 있었다. Transformer는 self-attention을 기반으로 모든 토큰 관계를 직접 모델링하면서 병렬 계산이 가능해졌고, 이것이 대규모 사전학습의 핵심 기반이 되었다.
-
-### 9.2 Scaled Dot-Product Attention
-
-Transformer의 핵심 연산은 다음과 같다.
-
-```math
-\text{Attention}(Q,K,V)=\text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
-```
-
-각 항의 의미는 다음과 같다.
-
-- $Q$: query matrix
-- $K$: key matrix
-- $V$: value matrix
-- $QK^T$: query와 key 사이의 similarity score
-- $d_k$: key 차원
-- $\sqrt{d_k}$로 나누는 이유: 차원이 커질수록 내적 값이 너무 커지는 것을 방지하기 위해서
-- softmax: 각 query에 대해 key별 가중치를 확률처럼 정규화
-- 최종적으로 value의 가중합을 계산
-
-### 9.3 Self-Attention
-
-언어 모델에서는 보통 같은 시퀀스에서 $Q,K,V$를 모두 만든다. 이를 self-attention이라고 한다. self-attention은 문장 내 모든 토큰이 서로 어떤 관련이 있는지 직접 학습하게 해 준다.
-
-### 9.4 Multi-Head Attention
-
-실제 Transformer는 attention을 여러 head로 나누어 서로 다른 관계를 병렬적으로 학습한다.
-
-```math
-\text{MultiHead}(Q,K,V)=\text{Concat}(\text{head}_1,\dots,\text{head}_H)W^O
-```
-
-- $H$: head 개수
-- 각 head는 서로 다른 projection을 사용해 다른 관계를 포착
-- $W^O$: 최종 선형 결합 행렬
-
-### 9.5 Positional Encoding
-
-Transformer는 recurrence가 없으므로 token 순서를 따로 주입해야 한다. 이를 위해 positional encoding 또는 learned positional embedding을 사용한다. 즉, Transformer는 attention만으로 관계를 학습하지만, “몇 번째 위치인가”라는 정보는 별도로 넣어 주어야 한다.
-
----
-
-## Chapter 10. Encoder-Only, Decoder-Only, Encoder-Decoder Models
-
-### 10.1 Encoder-Only
-
-대표 모델은 BERT다. 문장을 양방향으로 읽으며 masked language modeling을 수행한다. 주로 분류, retrieval, sentence representation 등에 강하다.
-
-### 10.2 Decoder-Only
-
-대표 모델은 GPT 계열이다. autoregressive 방식으로 다음 토큰을 예측하며 생성에 특화된다. ChatGPT류의 많은 모델이 이 구조를 기반으로 한다.
-
-### 10.3 Encoder-Decoder
-
-대표 모델은 T5, BART 등이 있다. 입력을 인코딩한 후 출력 시퀀스를 디코딩하는 구조로 translation, summarization, sequence-to-sequence task에 적합하다.
-
-이 세 구조의 차이를 이해하는 것은 이후 LLM과 multimodal LLM을 이해하는 데 중요하다.
-
----
-
-## Chapter 11. GPT and Scaling
-
-### 11.1 GPT Objective
-
-GPT는 decoder-only autoregressive language model이다. 학습 목적함수는 다음과 같다.
-
-```math
-\mathcal{L}_{GPT} = -\sum_{t=1}^{T}\log P(x_t\mid x_{1:t-1})
-```
-
-즉, language modeling objective 자체는 Chapter 8의 기본 식과 동일하다. 중요한 차이는 대규모 데이터, 대규모 모델, 대규모 계산을 통해 emergent capability를 확보했다는 점이다.
-
-### 11.2 Scaling Laws
-
-대규모 언어모델 연구에서 중요한 관찰 중 하나는 모델 크기, 데이터 양, 계산량이 증가할수록 성능이 예측 가능한 형태로 개선된다는 scaling law이다. 이 관찰은 “더 큰 모델을 학습시키면 어떤 종류의 능력이 나타나는가”라는 질문과 직결되며, GPT-3 이후의 흐름을 이해하는 핵심 배경이 된다.
-
-### 11.3 In-Context Learning
-
-GPT-3가 특히 주목받은 이유 중 하나는 파라미터 업데이트 없이 프롬프트 안의 예시만으로 task를 수행하는 in-context learning 능력이었다. 이는 모델이 단순 암기를 넘어서, 주어진 문맥에서 task pattern을 추론할 수 있음을 보여 주었다.
-
----
-
-## Chapter 12. Instruction Tuning and RLHF
-
-### 12.1 Why Pretrained LM Is Not Enough
-
-기본 language model은 “다음 토큰 예측”에는 강하지만, 사람이 원하는 형식으로 대답하거나 안전하고 유용한 응답을 제공하는 데는 한계가 있다. 따라서 모델을 사람의 지시에 더 잘 따르도록 재조정하는 과정이 필요하다.
-
-### 12.2 Instruction Tuning
-
-Instruction tuning은 입력-지시-응답 형태의 supervised data를 이용해 모델을 미세조정하는 과정이다. 이를 통해 모델은 단순 continuation을 넘어, “질문에 답하기”, “요약하기”, “분석하기” 같은 instruction-following behavior를 학습한다.
-
-### 12.3 Reinforcement Learning from Human Feedback (RLHF)
-
-RLHF의 핵심 개념은 인간 선호를 reward로 모델링하고, 그 보상을 최대화하도록 언어모델을 조정하는 것이다. 매우 단순화하면 목표는 다음과 같이 표현할 수 있다.
-
-```math
-\max_{\theta}\mathbb{E}[r(x)]
-```
-
-- $\theta$: 모델 파라미터
-- $r(x)$: reward model이 부여하는 보상
-- $\mathbb{E}$: 기대값
-
-실제 구현은 더 복잡하며, 보통 다음 단계를 거친다.
-
-- supervised fine-tuning
-- preference data 수집
-- reward model 학습
-- PPO 등 RL 알고리즘으로 policy optimization
-
-RLHF는 LLM을 “더 사람 친화적이고 지시를 잘 따르는 시스템”으로 바꾸는 핵심 메커니즘으로 자리 잡았다.
-
----
-
-## Chapter 13. Retrieval-Augmented Generation (RAG)
-
-### 13.1 Motivation
-
-LLM은 사전학습된 파라미터 안에 많은 정보를 저장하지만, 최신 정보나 특정 도메인 지식을 항상 정확히 기억하는 것은 아니다. 또한 hallucination 문제가 존재한다. 이를 완화하기 위한 대표적 방법이 retrieval-augmented generation이다.
-
-### 13.2 Basic Formulation
-
-```math
-y = f(x, \text{Retrieve}(x))
-```
-
-여기서,
-
-- $x$: 사용자 질의
-- $\text{Retrieve}(x)$: 질의와 관련된 외부 문서 검색 결과
-- $f(\cdot)$: 검색 결과를 조건으로 응답을 생성하는 모델
-- $y$: 최종 응답
-
-즉, LLM이 내부 파라미터만으로 답하지 않고 외부 지식을 참조해 답하게 만드는 구조다.
-
-### 13.3 Typical RAG Pipeline
-
-일반적인 RAG 시스템은 다음 단계로 구성된다.
-
-- 문서 수집 및 chunking
-- embedding 생성
-- vector search 또는 hybrid retrieval
-- retrieved context 재랭킹
-- generator에 context 삽입
-- 답변 생성 및 citation 처리
-
-RAG는 실제 산업 응용에서 가장 중요한 LLM 시스템 구성 방식 중 하나다.
-
----
-
-## Chapter 14. Efficient Adaptation of LLMs
-
-### 14.1 Why Full Fine-Tuning Is Difficult
-
-LLM은 수십억에서 수천억 개의 파라미터를 갖기 때문에 모든 파라미터를 미세조정하는 것은 메모리와 연산 비용 측면에서 매우 비싸다. 따라서 parameter-efficient fine-tuning이 중요해졌다.
-
-### 14.2 LoRA
-
-LoRA는 기존 weight를 직접 크게 바꾸는 대신, 저랭크 업데이트를 추가하는 방식이다. 핵심 아이디어는 가중치 변화량 $\Delta W$가 저차원 구조를 가진다고 보는 것이다.
-
-```math
-\Delta W = BA
-```
-
-- $B \in \mathbb{R}^{d \times r}$
-- $A \in \mathbb{R}^{r \times k}$
-- $r$: low-rank dimension, 보통 원래 차원보다 매우 작음
-
-그 결과 실제 업데이트는 다음처럼 표현할 수 있다.
-
-```math
-W' = W + \Delta W = W + BA
-```
-
-즉, 원래 큰 가중치 $W$는 고정하거나 거의 유지하고, 작은 랭크의 보정 항만 학습한다. 이 방법은 메모리 효율성과 성능의 균형이 좋아 실제 응용에서 매우 널리 쓰인다.
-
----
-
-## Chapter 15. Multimodal LLMs
-
-### 15.1 Basic Idea
-
-최신 LLM은 텍스트만이 아니라 이미지, 오디오, 비디오 등 다양한 입력을 처리하는 방향으로 확장되고 있다. 가장 단순한 수식 형태로는 다음처럼 쓸 수 있다.
-
-```math
-y = f(x^{text}, x^{image}, x^{audio}, \dots)
-```
-
-- $x^{text}$: 텍스트 입력
-- $x^{image}$: 이미지 입력
-- $x^{audio}$: 오디오 입력
-- $y$: 텍스트 응답, 행동 계획, 다중 모달 출력 등
-
-### 15.2 Key Architectural Pattern
-
-대부분의 multimodal LLM은 다음 세 부분으로 구성된다.
-
-- unimodal encoder (예: vision encoder)
-- connector or projector
-- LLM backbone
-
-예를 들어 이미지의 patch feature를 바로 LLM이 읽을 수는 없으므로, vision encoder가 만든 feature를 projector가 LLM token space에 맞게 변환해 준다.
-
-### 15.3 Representative Models
-
-대표적인 multimodal LLM 또는 관련 시스템 흐름은 다음과 같다.
-
-- Flamingo
-- BLIP-2
-- LLaVA
-- GPT-4V 계열
-- Gemini 계열
-
-이 흐름은 “강력한 LLM + 강력한 encoder + 효율적 연결부 + instruction tuning”이라는 공통 패턴을 보인다.
-
-### 15.4 Core Research Questions
-
-multimodal LLM의 핵심 연구 질문은 다음과 같다.
-
-- 시각 정보와 언어 정보를 어떻게 정렬할 것인가
-- LLM이 이미지나 오디오를 어떤 token 형태로 받아들일 것인가
-- 단순 captioning을 넘어서 어떻게 reasoning을 수행할 것인가
-- hallucination과 grounding 문제를 어떻게 줄일 것인가
-- long-context multimodal input을 어떻게 처리할 것인가
-
----
-
-## Chapter 16. Overall Roadmap and Final Summary
-
-이 문서 전체의 흐름은 다음과 같이 요약할 수 있다.
-
-### Part 1. Multimodal Learning
+## Overall Roadmap and Final Summary
 - classical fusion
 - shared representation learning
 - CCA와 DCCA
@@ -726,20 +452,7 @@ multimodal LLM의 핵심 연구 질문은 다음과 같다.
 - missing modality robustness
 - foundation model로의 확장
 
-### Part 2. LLM
-- language modeling objective
-- Transformer architecture
-- GPT와 scaling
-- instruction tuning과 RLHF
-- RAG와 external knowledge
-- LoRA와 efficient adaptation
-- multimodal LLM
-
-핵심적으로 보면, multimodal learning은 “여러 modality를 어떻게 연결할 것인가”의 문제에서 출발했고, LLM은 “언어를 어떻게 대규모로 모델링하고 정렬할 것인가”의 문제에서 출발했다. 최신 연구는 이 두 흐름이 합쳐져, **멀티모달 입력을 이해하고, 외부 지식을 검색하며, 사람의 지시를 따르고, 복합 추론을 수행하는 foundation model**로 수렴하고 있다.
-
----
-# Part 1 (Advanced Extension). Multimodal Learning: Theory and Modern Practice
-
+# Part 2 (Advanced Extension). Multimodal Learning: Theory and Modern Practice
 ## Chapter 17. Information-Theoretic Foundations
 
 멀티모달 학습은 서로 다른 modality가 공유하는 정보를 최대화하고, 불필요한 modality-specific 노이즈를 최소화하는 문제로 해석할 수 있다. 이를 정보이론적으로 표현하면 Mutual Information(MI) 최대화 문제로 볼 수 있다.
@@ -889,7 +602,6 @@ P(Y|do(X))
 
 ---
 
-# Part 2 (Advanced Extension). Large Language Models
 
 ## Chapter 24. Probabilistic View of Language Models
 
@@ -997,25 +709,18 @@ L(N) \propto N^{-\alpha}
 ---
 
 ## Chapter 30. Multimodal LLM Integration
-
 최신 AI 시스템은 multimodal과 LLM이 통합된 형태다.
-
 ```math
 y = f(x^{text}, x^{image}, x^{audio}, \mathcal{K})
 ```
-
 - $\mathcal{K}$: external knowledge  
 
 구성 요소:
-
 - perception (vision/audio encoder)  
 - reasoning (LLM)  
 - memory (retrieval system)  
-
 ---
-
 ## Chapter 31. Unified Perspective
-
 전체 흐름은 다음과 같이 정리된다.
 
 ```text
@@ -1031,32 +736,19 @@ Multimodal Representation → Alignment → Transformer → LLM → RLHF → RAG
 
 ---
 
+# References
+- Ngiam, J., Khosla, A., Kim, M., Nam, J., Lee, H., and Ng, A. Y. Multimodal Deep Learning. ICML, 2011.
+- Srivastava, N., and Salakhutdinov, R. Multimodal Learning with Deep Boltzmann Machines. NeurIPS, 2012.
+- Andrew, G., Arora, R., Bilmes, J., and Livescu, K. Deep Canonical Correlation Analysis. ICML, 2013.
+- Baltrušaitis, T., Ahuja, C., and Morency, L.-P. Multimodal Machine Learning: A Survey and Taxonomy. IEEE TPAMI, 2019.
+- Radford, A., Kim, J. W., Hallacy, C., et al. Learning Transferable Visual Models From Natural Language Supervision. ICML, 2021.
+- Alayrac, J.-B., Donahue, J., Luc, P., et al. Flamingo: a Visual Language Model for Few-Shot Learning. NeurIPS, 2022.
+- Li, J., Li, D., Savarese, S., and Hoi, S. BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models. ICML, 2023.
+- Liu, H., Li, C., Wu, Q., and Lee, Y. J. Visual Instruction Tuning. NeurIPS, 2023.
+- 
 # Additional References
-
 - Poole et al., "On Variational Bounds of Mutual Information", ICML 2019  
 - Gutmann & Hyvärinen, "Noise Contrastive Estimation", 2010  
 - Arjovsky et al., "Invariant Risk Minimization", 2019  
 - Peyré & Cuturi, "Computational Optimal Transport", 2019  
 - Kaplan et al., "Scaling Laws for Neural Language Models", 2020  
-# References
-
-## Multimodal Learning
-1. Ngiam, J., Khosla, A., Kim, M., Nam, J., Lee, H., and Ng, A. Y. Multimodal Deep Learning. ICML, 2011.
-2. Srivastava, N., and Salakhutdinov, R. Multimodal Learning with Deep Boltzmann Machines. NeurIPS, 2012.
-3. Andrew, G., Arora, R., Bilmes, J., and Livescu, K. Deep Canonical Correlation Analysis. ICML, 2013.
-4. Baltrušaitis, T., Ahuja, C., and Morency, L.-P. Multimodal Machine Learning: A Survey and Taxonomy. IEEE TPAMI, 2019.
-5. Radford, A., Kim, J. W., Hallacy, C., et al. Learning Transferable Visual Models From Natural Language Supervision. ICML, 2021.
-6. Alayrac, J.-B., Donahue, J., Luc, P., et al. Flamingo: a Visual Language Model for Few-Shot Learning. NeurIPS, 2022.
-7. Li, J., Li, D., Savarese, S., and Hoi, S. BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models. ICML, 2023.
-8. Liu, H., Li, C., Wu, Q., and Lee, Y. J. Visual Instruction Tuning. NeurIPS, 2023.
-
-## Large Language Models
-9. Vaswani, A., Shazeer, N., Parmar, N., et al. Attention Is All You Need. NeurIPS, 2017.
-10. Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. NAACL, 2019.
-11. Brown, T., Mann, B., Ryder, N., et al. Language Models are Few-Shot Learners. NeurIPS, 2020.
-12. Lewis, P., Perez, E., Piktus, A., et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS, 2020.
-13. Ouyang, L., Wu, J., Jiang, X., et al. Training Language Models to Follow Instructions with Human Feedback. NeurIPS, 2022.
-14. Hu, E. J., Shen, Y., Wallis, P., et al. LoRA: Low-Rank Adaptation of Large Language Models. ICLR, 2022.
-15. Touvron, H., Lavril, T., Izacard, G., et al. LLaMA: Open and Efficient Foundation Language Models. 2023.
-16. Zhao, W. X., Zhou, K., Li, J., et al. A Survey of Large Language Models. 2023.
-17. Bommasani, R., et al. On the Opportunities and Risks of Foundation Models. 2021.
