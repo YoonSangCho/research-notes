@@ -1,0 +1,389 @@
+# Part 1. Multimodal Learning
+
+# Chapter 1. Multimodal Learning의 개요, 필요성, 그리고 문제 설정
+
+## 1.1 왜 Multimodal Learning이 필요한가
+
+인공지능이 현실 세계를 이해하려면, 하나의 데이터 형식만 보는 것으로는 충분하지 않은 경우가 많다. 사람은 사물을 볼 때 이미지 정보만 활용하지 않는다. 말의 내용은 텍스트로 이해하고, 억양은 음성으로 이해하며, 행동은 영상의 시간적 변화로 이해한다. 의료 영역에서는 영상만으로 판단하지 않고, 임상 변수, 검사 수치, 병리 정보, 유전체 정보까지 함께 고려한다. 이처럼 현실의 문제는 본질적으로 여러 정보원을 동시에 포함하는 경우가 많으며, 이러한 서로 다른 정보원을 **modality**라고 부른다.
+
+**Multimodal Learning**은 둘 이상의 modality를 함께 사용하여, 단일 modality만 사용할 때보다 더 풍부하고 더 견고한 표현을 학습하는 연구 분야이다.
+
+대표적인 예시는 다음과 같다.
+
+- 이미지 + 텍스트: image captioning, visual question answering
+- 음성 + 영상: audio-visual speech recognition
+- 의료영상 + 임상 데이터: 진단 예측, 예후 예측
+- 센서 + 로그 + 텍스트: 산업 이상 탐지, root cause analysis
+- 비디오 + 오디오 + 자막: video understanding
+
+이 분야가 중요한 이유는 단순히 데이터를 여러 개 붙이기 때문이 아니다. 핵심은 서로 다른 modality가 **상보적(complementary)** 정보를 제공한다는 점에 있다. 어떤 modality는 공간 정보를 잘 담고, 어떤 modality는 의미 정보를 잘 담으며, 어떤 modality는 시간적 변화를 잘 담는다. 따라서 multimodal learning의 본질은 “서로 다른 정보원을 어떻게 정렬하고, 어떻게 융합하고, 어떻게 공통 표현으로 추상화할 것인가”의 문제라고 볼 수 있다.
+
+---
+
+## 1.2 Modality란 무엇인가
+
+modality는 데이터를 관측하는 방식 또는 정보가 표현되는 형식을 의미한다.
+
+예를 들어 같은 환자에 대해 다음과 같은 여러 modality가 존재할 수 있다.
+
+- MRI 영상
+- 전자의무기록(EMR)
+- 혈액검사 수치
+- 유전체 데이터
+- 의사 판독 텍스트
+
+이들은 모두 같은 대상을 설명하지만, 표현 공간이 서로 다르다.
+
+- 이미지는 일반적으로 고차원 연속값 텐서이다.
+- 텍스트는 토큰 시퀀스이다.
+- 음성은 waveform 또는 spectrogram으로 표현된다.
+- 표형 데이터(tabular data)는 고정 길이 feature vector이다.
+- 시계열은 시간 축을 따라 변하는 연속 관측값이다.
+
+즉, multimodal learning은 단순히 입력 개수가 많은 문제가 아니라, **표현 체계가 서로 다른 데이터들을 함께 다루는 문제**이다.
+
+---
+
+## 1.3 수학적 문제 설정
+
+멀티모달 입력이 총 \(M\)개 존재한다고 하자. 각 modality를 다음과 같이 나타낼 수 있다.
+
+\[
+x^{(1)}, x^{(2)}, \dots, x^{(M)}
+\]
+
+여기서 각 기호의 의미는 다음과 같다.
+
+- \(M\): modality의 개수
+- \(x^{(m)}\): \(m\)번째 modality의 입력 데이터
+- 예를 들어 \(x^{(1)}\)은 이미지, \(x^{(2)}\)는 텍스트, \(x^{(3)}\)는 음성일 수 있다.
+
+멀티모달 학습의 가장 기본적인 목표는 여러 modality를 이용하여 하나의 유용한 표현 또는 예측값을 만드는 것이다.
+
+\[
+z = f\bigl(x^{(1)}, x^{(2)}, \dots, x^{(M)}\bigr)
+\]
+
+여기서,
+
+- \(f(\cdot)\): multimodal model 또는 fusion model
+- \(z\): 공통 표현(shared representation) 또는 최종 결합 표현(fused representation)
+
+만약 목표가 분류나 회귀라면 최종 출력은 다음처럼 쓸 수 있다.
+
+\[
+\hat{y} = g(z)
+\]
+
+여기서,
+
+- \(g(\cdot)\): 예측기(prediction head)
+- \(\hat{y}\): 모델의 예측값
+
+두 식을 합치면 다음과 같이 정리된다.
+
+\[
+\hat{y} = g\Bigl(f\bigl(x^{(1)}, x^{(2)}, \dots, x^{(M)}\bigr)\Bigr)
+\]
+
+즉, multimodal learning의 전체 구조는 보통 다음 두 단계로 생각할 수 있다.
+
+1. 각 modality로부터 정보를 추출하고 결합하여 representation \(z\)를 만든다.
+2. 그 representation을 이용해 분류, 회귀, 생성, 검색 등의 downstream task를 수행한다.
+
+---
+
+## 1.4 단일 modality 학습과의 차이
+
+단일 modality 학습에서는 다음과 같이 하나의 입력만 존재한다.
+
+\[
+\hat{y} = h(x)
+\]
+
+여기서,
+
+- \(x\): 단일 입력
+- \(h(\cdot)\): 예측 모델
+
+하지만 multimodal learning에서는 입력이 여러 개이므로, 다음과 같은 추가적인 어려움이 생긴다.
+
+### 1) 표현 공간의 이질성
+
+이미지와 텍스트는 구조가 다르다. 이미지는 2차원 또는 3차원 spatial structure를 갖고, 텍스트는 순서가 있는 token sequence이다. 따라서 같은 방식으로 인코딩할 수 없다.
+
+### 2) 정렬(alignment)의 문제
+
+이미지 한 장과 문장 한 개가 정확히 대응되는가? 음성 프레임과 입술 움직임은 시간적으로 얼마나 맞아떨어지는가? 의료영상과 판독문은 어떤 수준에서 대응되는가? 이처럼 modality 사이의 대응 관계를 맞추는 문제가 핵심이다.
+
+### 3) 결측(missing modality)의 문제
+
+실제 환경에서는 모든 modality가 항상 존재하지 않는다. 예를 들어 검사 누락, 센서 고장, 촬영 프로토콜 차이로 인해 일부 modality가 비어 있을 수 있다.
+
+### 4) 정보 중복과 충돌
+
+어떤 modality는 같은 정보를 중복해서 제공할 수 있지만, 어떤 경우에는 서로 상충되는 신호를 줄 수도 있다. 따라서 단순 concatenation만으로는 충분하지 않다.
+
+---
+
+## 1.5 Multimodal Learning의 핵심 목표
+
+멀티모달 학습의 목표는 크게 네 가지 축으로 정리할 수 있다.
+
+### 1) Representation Learning
+
+여러 modality를 반영하는 좋은 잠재표현(latent representation)을 학습하는 것이다.
+
+\[
+z = f\bigl(x^{(1)}, x^{(2)}, \dots, x^{(M)}\bigr)
+\]
+
+좋은 representation이란 다음 성질을 가질수록 바람직하다.
+
+- 예측 성능에 유용하다.
+- modality 간 공통 구조를 반영한다.
+- 노이즈에 덜 민감하다.
+- 결측 modality 상황에서도 비교적 안정적이다.
+
+### 2) Alignment
+
+서로 다른 modality가 같은 의미를 가리키도록 표현 공간을 정렬하는 것이다.
+
+예를 들어 이미지와 텍스트가 같은 대상을 설명한다면, 공통 latent space에서 서로 가깝게 오도록 학습할 수 있다.
+
+### 3) Fusion
+
+각 modality의 정보를 실제로 어떻게 결합할 것인가의 문제이다.
+
+- 입력 단계에서 합칠 것인가
+- 중간 표현에서 합칠 것인가
+- 각 modality별 예측을 마지막에 합칠 것인가
+
+이는 이후 챕터에서 early fusion, late fusion, hybrid fusion으로 자세히 다룬다.
+
+### 4) Generation / Translation
+
+한 modality에서 다른 modality를 생성하는 문제도 multimodal learning의 중요한 축이다.
+
+예:
+- 이미지 → 텍스트 (captioning)
+- 텍스트 → 이미지 (text-to-image generation)
+- 오디오 → 텍스트 (speech recognition)
+- 텍스트 + 이미지 → 응답 문장 (vision-language generation)
+
+---
+
+## 1.6 지도학습 관점의 목적함수
+
+멀티모달 분류 또는 회귀 문제를 생각해 보자. 데이터셋을 다음과 같이 쓸 수 있다.
+
+\[
+\mathcal{D} = \{(x_i^{(1)}, x_i^{(2)}, \dots, x_i^{(M)}, y_i)\}_{i=1}^N
+\]
+
+여기서,
+
+- \(N\): 샘플 개수
+- \(x_i^{(m)}\): \(i\)번째 샘플의 \(m\)번째 modality
+- \(y_i\): 정답 라벨 또는 타깃값
+
+모델이 \(\hat{y}_i\)를 예측한다고 하면,
+
+\[
+\hat{y}_i = g\Bigl(f\bigl(x_i^{(1)}, x_i^{(2)}, \dots, x_i^{(M)}\bigr)\Bigr)
+\]
+
+학습 목표는 일반적으로 다음 empirical risk minimization 형태로 쓴다.
+
+\[
+\min_{\theta} \frac{1}{N}\sum_{i=1}^{N}\mathcal{L}(\hat{y}_i, y_i)
+\]
+
+여기서,
+
+- \(\theta\): 전체 모델의 파라미터
+- \(\mathcal{L}\): 손실 함수(loss function)
+- 분류라면 cross-entropy loss, 회귀라면 mean squared error 등을 사용할 수 있다.
+
+### 분류 문제의 예
+
+정답 클래스가 one-hot 벡터 \(y_i\), 예측 확률이 \(\hat{y}_i\)일 때 cross-entropy는 다음과 같다.
+
+\[
+\mathcal{L}_{CE}(y_i, \hat{y}_i) = - \sum_{c=1}^{C} y_{ic}\log \hat{y}_{ic}
+\]
+
+각 항의 의미는 다음과 같다.
+
+- \(C\): 클래스 개수
+- \(y_{ic}\): 샘플 \(i\)가 클래스 \(c\)에 속하면 1, 아니면 0
+- \(\hat{y}_{ic}\): 샘플 \(i\)가 클래스 \(c\)일 것으로 예측한 확률
+
+### 회귀 문제의 예
+
+회귀에서는 평균제곱오차를 사용할 수 있다.
+
+\[
+\mathcal{L}_{MSE}(y_i, \hat{y}_i) = (y_i - \hat{y}_i)^2
+\]
+
+여기서,
+
+- \(y_i\): 실제 연속형 타깃
+- \(\hat{y}_i\): 예측값
+- 차이를 제곱하는 이유는 큰 오차를 더 크게 벌주기 위해서이다.
+
+---
+
+## 1.7 Multimodal Learning의 세 가지 기본 설정
+
+고전적 멀티모달 딥러닝 연구에서는 대체로 다음 세 가지 설정이 자주 등장한다.
+
+### 1) Multimodal Fusion
+
+모든 modality가 주어졌을 때, 이를 결합해 더 좋은 성능을 내는 문제이다.
+
+\[
+\hat{y} = h(x^{(1)}, x^{(2)})
+\]
+
+예:
+- 이미지 + 텍스트로 객체 분류
+- MRI + clinical data로 예후 예측
+
+### 2) Cross-modal Learning
+
+한 modality를 이용해 다른 modality에 유용한 표현을 학습하는 문제이다.
+
+예를 들어 학습 시점에는 이미지와 텍스트가 모두 있지만, 테스트 시점에는 이미지 modality만 사용하더라도 텍스트의 도움을 받아 더 좋은 이미지 표현을 배울 수 있다.
+
+### 3) Shared Representation Learning
+
+서로 다른 modality를 공통 잠재공간에 매핑하여, modality가 달라도 유사한 의미를 가진 샘플은 비슷한 위치에 오도록 만드는 문제이다.
+
+\[
+z^{(1)} = f_1(x^{(1)}), \qquad z^{(2)} = f_2(x^{(2)})
+\]
+
+이때 바람직한 목표는 의미가 같은 쌍에 대해
+
+\[
+z^{(1)} \approx z^{(2)}
+\]
+
+가 되도록 하는 것이다.
+
+이 구조는 이후 contrastive learning, CLIP, retrieval, multimodal foundation model의 핵심 토대가 된다.
+
+---
+
+## 1.8 Multimodal Learning의 대표 응용 분야
+
+### 1) Vision-Language Learning
+
+가장 빠르게 발전한 분야 중 하나이다.
+
+대표 과제:
+- image-text retrieval
+- image captioning
+- visual question answering
+- text-to-image generation
+- multimodal chat model
+
+### 2) Audio-Visual Learning
+
+음성과 영상을 함께 사용한다.
+
+대표 과제:
+- lip reading
+- audio-visual speech recognition
+- event localization in videos
+
+### 3) Medical Multimodal Learning
+
+의료는 본질적으로 multimodal하다.
+
+대표 modality:
+- CT, MRI, X-ray, pathology image
+- EMR
+- lab test
+- genomic data
+- clinical notes
+
+대표 과제:
+- 진단 분류
+- 예후 예측
+- 치료 반응 예측
+- 생존 분석
+- 임상 의사결정 지원
+
+### 4) Industrial / Sensor Multimodal Learning
+
+산업 현장에서는 센서, 이미지, 로그, 정형 데이터가 함께 쓰인다.
+
+대표 과제:
+- 이상 탐지
+- 고장 진단
+- 품질 예측
+- root cause analysis
+
+---
+
+## 1.9 전통적 방법에서 최신 방법으로의 흐름
+
+멀티모달 학습의 발전 흐름을 큰 줄기로 보면 다음과 같다.
+
+### 초기 단계: feature concatenation과 shallow fusion
+
+가장 단순한 방식은 여러 modality feature를 이어 붙여(concatenate) 하나의 벡터를 만드는 것이다.
+
+\[
+x = [x^{(1)} ; x^{(2)}]
+\]
+
+여기서,
+
+- \([\, ; \,]\): 벡터를 이어 붙이는 concatenation 연산
+
+이 방식은 구현은 쉽지만, modality 간 복잡한 상호작용을 잘 모델링하지 못한다.
+
+### 중간 단계: shared latent representation
+
+CCA, multi-view learning, multimodal autoencoder, Deep CCA와 같은 방법들이 발전하면서, “각 modality를 같은 잠재공간으로 보낸다”는 생각이 강화되었다.
+
+### 딥러닝 전개: modality-specific encoder + fusion
+
+CNN, RNN, Transformer가 발전하면서 각 modality를 전용 encoder로 처리한 뒤, 중간 표현을 결합하는 방식이 널리 쓰이게 되었다.
+
+### 현대적 단계: large-scale alignment
+
+최근에는 대규모 image-text pair, video-text pair, audio-text pair를 활용해 contrastive learning으로 공통 표현을 학습하는 방법이 핵심이 되었다. CLIP은 그 대표 사례이다.
+
+### 최신 단계: multimodal foundation model
+
+이제는 단일 task 모델이 아니라, 대규모 사전학습을 통해 다양한 downstream task에 적응 가능한 foundation model이 중심이 되고 있다. 이후 Flamingo, BLIP-2, PaLI, LLaVA 같은 vision-language 계열 모델들이 이 흐름 위에 놓인다.
+
+---
+
+## 1.10 이 책의 구성
+
+이 책은 멀티모달 학습을 다음 흐름으로 설명한다.
+
+### Part 1. Multimodal Learning
+- Chapter 1. 개요와 문제 설정
+- Chapter 2. 고전적 방법: early fusion, late fusion, CCA, DCCA
+- Chapter 3. 딥러닝 기반 표현학습과 contrastive learning
+- Chapter 4. alignment, fusion, translation
+- Chapter 5. missing modality, robustness, imperfect data
+- Chapter 6. 최신 vision-language 및 multimodal foundation model
+- Chapter 7. 의료, 산업, 시계열 멀티모달 응용
+
+### Part 2. Large Language Models
+- Transformer 기초
+- 언어모델링 목적함수
+- BERT, GPT 계열
+- instruction tuning, RLHF
+- scaling law, efficient adaptation, RAG
+- multimodal LLM
+
+즉, 이 책은 멀티모달을 먼저 이해한 뒤, 그 위에서 LLM과 multimodal LLM으로 자연스럽게 이어지도록 설계한다.
