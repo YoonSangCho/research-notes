@@ -84,10 +84,222 @@ z = f(x^{(1)}, x^{(2)}, \dots, x^{(M)})
 \min_{\theta} \frac{1}{N}\sum \mathcal{L}(\hat{y}_i, y_i)
 ```
 
+# Chapter 2. Classical Multimodal Methods
+
 ---
+
+## 2.1 Early Fusion
+
+```math
+x = [x^{(1)} ; x^{(2)}]
+```
+
+- 입력 단계 결합
+- 단순하지만 표현력 부족
+
+---
+
+## 2.2 Late Fusion
+
+```math
+z^{(1)} = f_1(x^{(1)})
+z^{(2)} = f_2(x^{(2)})
+```
+
+```math
+\hat{y} = g(z^{(1)}, z^{(2)})
+```
+
+- modality 독립 학습
+- interaction 부족
+
+---
+
+## 2.3 CCA
+
+```math
+\max \text{corr}(w_1^T x^{(1)}, w_2^T x^{(2)})
+```
+
+- 두 modality 정렬
+
+---
+
+## 2.4 DCCA
+
+```math
+h_1 = f_1(x^{(1)}), h_2 = f_2(x^{(2)})
+```
+
+```math
+\max \text{corr}(h_1, h_2)
+```
+
+---
+
+## 2.5 한계
+
+- interaction 부족
+- 표현력 부족
+- scalability 문제
 
 ## 1.6 Chapter Summary
 
 - Multimodal = 여러 데이터 표현 통합 문제
 - 핵심 = alignment + fusion + representation
 - 이후 deep multimodal로 확장됨
+
+# Chapter 3. Deep Multimodal Representation Learning
+
+---
+
+## 3.1 Joint Embedding
+
+```math
+z^{(1)} = f_1(x^{(1)})
+z^{(2)} = f_2(x^{(2)})
+```
+
+```math
+z^{(1)} \approx z^{(2)}
+```
+
+---
+
+## 3.2 Contrastive Learning
+
+```math
+\mathcal{L} = -\log \frac{\exp(\text{sim}(z_i^{(v)}, z_i^{(t)})/\tau)}{\sum_j \exp(\text{sim}(z_i^{(v)}, z_j^{(t)})/\tau)}
+```
+
+- numerator: positive pair
+- denominator: negative pairs
+
+---
+
+## 3.3 의미
+
+- alignment 수행
+- shared latent space 형성
+
+---
+
+## 3.4 CLIP 구조
+
+- image encoder
+- text encoder
+- contrastive objective
+
+# Chapter 4. Multimodal Fusion & Attention
+
+---
+
+## 4.1 Attention
+
+```math
+\text{Attention}(Q,K,V) = \text{softmax}(QK^T / \sqrt{d}) V
+```
+
+---
+
+## 4.2 Cross Attention
+
+- Q: text
+- K,V: image
+
+→ 텍스트가 이미지의 어떤 부분을 참조하는지 학습
+
+---
+
+## 4.3 Multimodal Transformer
+
+```math
+Z = \text{Transformer}([X^{(v)}, X^{(t)}])
+```
+
+---
+
+## 4.4 특징
+
+- modality interaction 학습 가능
+- deep fusion 가능
+
+
+# Chapter 5. Missing Modality
+
+---
+
+## 5.1 문제
+
+- 일부 modality 없음
+- real-world에서 필수 문제
+
+---
+
+## 5.2 해결 방법
+
+- modality dropout
+- imputation
+- shared representation
+
+---
+
+## 5.3 핵심
+
+- robustness 확보
+- generalization 향상
+
+- # Chapter 6. Modern Multimodal Models
+
+---
+
+## 6.1 CLIP
+
+- contrastive learning
+- image-text alignment
+
+---
+
+## 6.2 Flamingo
+
+- frozen LLM + vision encoder
+
+---
+
+## 6.3 BLIP / BLIP-2
+
+- vision-language pretraining
+
+---
+
+## 6.4 LLaVA
+
+- multimodal chat model
+
+---
+
+## 6.5 핵심 흐름
+
+- representation → alignment → generation
+
+# Chapter 7. Applications
+
+---
+
+## 7.1 Medical AI
+
+- MRI + EMR
+- prognosis prediction
+
+---
+
+## 7.2 Industrial AI
+
+- sensor + image
+- anomaly detection
+
+---
+
+## 7.3 Foundation Model
+
+- general multimodal reasoning
