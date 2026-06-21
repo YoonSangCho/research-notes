@@ -20,6 +20,7 @@
 | 11 | [BRCA Multimodal Foundation Models](11.BRCA_Multimodal_Foundation_Models.md) | 유방 MRI 기반 BRCA 변이 예측 — 라디오믹스에서 멀티모달 FM까지 실험 설계 *(작성 중)* |
 | 12 | [Surrogate-Based Multi-Objective Optimization](12.SurrogateBasedMultiObjectiveOptimization.md) | 다목적 최적화·베이지안 최적화(EHVI·ParEGO)·제약 처리 — 타이어 설계 프로젝트 |
 | 13 | [Surrogate Modeling & Computational Cost](13.SurrogateModeling_and_ComputationalCost.md) | 대리모델 선택과 계산비용, TabPFN의 최적화 루프 한계, conformal 불확실성 |
+| 14 | [Causal Interpretation Pitfalls](14.CausalInterpretationPitfalls.md) | 상관≠인과 — 교란·Table 2 오류·역인과·collider, SHAP를 인과로 오해석하는 함정과 의료 사례 |
 | — | [Vibe Coding](VibeCoding.md) | VS Code+Claude Code / Amazon Kiro 에이전트형 코딩 실습 가이드 |
 
 > 파일명 일부에 오타가 있으나(`Predicvti`, `Fairncess`, `Anaylsis`) 기존 링크·git 이력 보존을 위해 유지한다.
