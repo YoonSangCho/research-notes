@@ -21,6 +21,7 @@
 | 12 | [Surrogate-Based Multi-Objective Optimization](12.SurrogateBasedMultiObjectiveOptimization.md) | 다목적 최적화·베이지안 최적화(EHVI·ParEGO)·제약 처리 — 타이어 설계 프로젝트 |
 | 13 | [Surrogate Modeling & Computational Cost](13.SurrogateModeling_and_ComputationalCost.md) | 대리모델 선택과 계산비용, TabPFN의 최적화 루프 한계, conformal 불확실성 |
 | 14 | [Causal Interpretation Pitfalls](14.CausalInterpretationPitfalls.md) | 상관≠인과 — 교란·Table 2 오류·역인과·collider, SHAP를 인과로 오해석하는 함정과 의료 사례 |
+| 15 | [Prediction & Optimization Algorithms](15.PredictionAndOptimizationAlgorithms.md) | 타이어 최적화에 쓰는 예측모델 15종·최적화 6종을 연도순·항별 수식·실인용으로 정리한 배경지식 교과서 |
 | — | [Vibe Coding](VibeCoding.md) | VS Code+Claude Code / Amazon Kiro 에이전트형 코딩 실습 가이드 |
 
 > 파일명 일부에 오타가 있으나(`Predicvti`, `Fairncess`, `Anaylsis`) 기존 링크·git 이력 보존을 위해 유지한다.
