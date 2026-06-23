@@ -26,6 +26,7 @@
 | 17 | [Predictive Modeling Methods](17.PredictiveModelingMethods.md) | 예측모델 — 선형·정규화·SVM/kNN·트리·배깅/RF·부스팅·MLP/CNN/Transformer·파운데이션/전이·멀티모달 융합을 목적함수·학습절차·수식으로 비교 |
 | 18 | [SHAP](18.SHAP.md) | 협력게임이론 Shapley 값·공리, SHAP 가법귀속, 주변 vs 조건부, Kernel/Tree/Deep/Linear 추정, 전역해석·상호작용, 의료 함정(인과 오독·상관·적대조작) |
 | 19 | [Evaluating Prediction Models](19.EvaluatingPredictionModels.md) | 논문 "Statistical analysis" 단락 해부 — 부트스트랩 CI·사전지정 비교(선택편향)·DeLong·Bonferroni·보정(ECE/Brier)·DCA·macro-AUROC·민감도분석(ComBat/nested CV)·TRIPOD+AI/CLAIM |
+| 20 | [Text Mining → Transformers → LLM](20.TextMiningToTransformersLLM.md) | 비전공자용 — 빈도(TF-IDF)→의미(word2vec)→문맥(트랜스포머 Q·K·V 색상·항별 풀이)→LLM, 토크나이저 종류(BPE/WordPiece/Unigram/SentencePiece), 어텐션의 변수선택 응용, 의료 NLP(BioBERT/Med-PaLM) |
 | — | [Vibe Coding](VibeCoding.md) | VS Code+Claude Code / Amazon Kiro 에이전트형 코딩 실습 가이드 |
 
 > 파일명 일부에 오타가 있으나(`Predicvti`, `Fairncess`, `Anaylsis`) 기존 링크·git 이력 보존을 위해 유지한다.
