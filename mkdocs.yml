@@ -47,9 +47,9 @@ theme:
         name: 라이트 모드로 전환
 
 nav:
-  - 홈: README.md
+  - 홈: index.md
   - 기초 · 예측 모델링:
-      - "00 · 의료데이터 예측 모델링 템플릿": 00.PredicvtiveModeling.md
+      - "00 · 예측 모델링 템플릿": 00.PredicvtiveModeling.md
       - "17 · 예측 모델 방법론": 17.PredictiveModelingMethods.md
       - "19 · 예측 모델 평가": 19.EvaluatingPredictionModels.md
       - "05 · Boosting": 05.Boosting.md
@@ -59,6 +59,7 @@ nav:
   - 딥러닝 · 멀티모달:
       - "01 · Multimodal Learning": 01.MultimodalLearning.md
       - "02 · Large Language Models": 02.LargeLanguageModels.md
+      - "20 · Text Mining → Transformers → LLM": 20.TextMiningToTransformersLLM.md
       - "03 · Foundation Models": 03.FoundationModels.md
       - "04 · Tabular Foundation Models": 04.TabularFoundationModels.md
       - "10 · Diffusion Models": 10.DiffusionModels.md
@@ -71,9 +72,8 @@ nav:
       - "12 · Surrogate-Based Multi-Objective Optimization": 12.SurrogateBasedMultiObjectiveOptimization.md
       - "13 · Surrogate Modeling & Computational Cost": 13.SurrogateModeling_and_ComputationalCost.md
       - "15 · Prediction & Optimization Algorithms": 15.PredictionAndOptimizationAlgorithms.md
-  - 응용 프로젝트:
+  - 응용 사례:
       - "11 · BRCA Multimodal Foundation Models": 11.BRCA_Multimodal_Foundation_Models.md
-  - 기타:
       - "Vibe Coding": VibeCoding.md
 
 markdown_extensions:
@@ -128,6 +128,7 @@ exclude_docs: |
   site/
   requirements.txt
   mkdocs.yml
+  README.md
   assets/make_figures.py
 
 extra:

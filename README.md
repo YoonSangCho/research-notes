@@ -18,10 +18,10 @@
 | 09 | [Domain Generalization](09.DomainGeneralization.md) | DG/DA/OOD 구분, 도메인 이동 유형, DANN·CORAL·IRM·GroupDRO, DomainBed |
 | 10 | [Diffusion Models](10.DiffusionModels.md) | DDPM 수식, DDIM, score-based SDE, LDM/Stable Diffusion, consistency·flow matching |
 | 11 | [BRCA Multimodal Foundation Models](11.BRCA_Multimodal_Foundation_Models.md) | 유방 MRI 기반 BRCA 변이 예측 — 라디오믹스에서 멀티모달 FM까지 실험 설계 *(작성 중)* |
-| 12 | [Surrogate-Based Multi-Objective Optimization](12.SurrogateBasedMultiObjectiveOptimization.md) | 다목적 최적화·베이지안 최적화(EHVI·ParEGO)·제약 처리 — 타이어 설계 프로젝트 |
+| 12 | [Surrogate-Based Multi-Objective Optimization](12.SurrogateBasedMultiObjectiveOptimization.md) | 다목적 최적화·베이지안 최적화(EHVI·ParEGO)·제약 처리 — 다목적 공학 설계 최적화 사례 |
 | 13 | [Surrogate Modeling & Computational Cost](13.SurrogateModeling_and_ComputationalCost.md) | 대리모델 선택과 계산비용, TabPFN의 최적화 루프 한계, conformal 불확실성 |
 | 14 | [Causal Interpretation Pitfalls](14.CausalInterpretationPitfalls.md) | 상관≠인과 — 교란·Table 2 오류·역인과·collider, SHAP를 인과로 오해석하는 함정과 의료 사례 |
-| 15 | [Prediction & Optimization Algorithms](15.PredictionAndOptimizationAlgorithms.md) | 타이어 최적화에 쓰는 예측모델 15종·최적화 6종을 연도순·항별 수식·실인용으로 정리한 배경지식 교과서 |
+| 15 | [Prediction & Optimization Algorithms](15.PredictionAndOptimizationAlgorithms.md) | 다목적 공학 설계 최적화에 쓰는 예측모델 15종·최적화 6종을 연도순·항별 수식·실인용으로 정리한 배경지식 교과서 |
 | 16 | [Statistical Testing](16.StatisticalTesting.md) | 의료데이터 통계검정 — 변수·가정별 검정 선택(t/Welch/Mann–Whitney/χ²/Fisher/Cochran–Armitage), 다중비교 보정, ROC·DeLong·보정·DCA, 내부/외부 검증과 TRIPOD |
 | 17 | [Predictive Modeling Methods](17.PredictiveModelingMethods.md) | 예측모델 — 선형·정규화·SVM/kNN·트리·배깅/RF·부스팅·MLP/CNN/Transformer·파운데이션/전이·멀티모달 융합을 목적함수·학습절차·수식으로 비교 |
 | 18 | [SHAP](18.SHAP.md) | 협력게임이론 Shapley 값·공리, SHAP 가법귀속, 주변 vs 조건부, Kernel/Tree/Deep/Linear 추정, 전역해석·상호작용, 의료 함정(인과 오독·상관·적대조작) |
