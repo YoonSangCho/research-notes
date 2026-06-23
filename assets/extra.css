@@ -1,0 +1,24 @@
+/* 데스크톱에서 페이지 "세부 목차"(우측)를 좌측 내비게이션 바로 옆으로 옮겨
+   큰목차 | 세부목차 | 본문 순서로, 두 목차를 왼쪽에 나란히 배치한다.
+   (모바일/태블릿은 Material 기본 드로어 동작 유지) */
+@media screen and (min-width: 76.25em) {
+  .md-main__inner {
+    display: flex;
+  }
+  .md-sidebar--primary {
+    order: 0;
+  }
+  .md-sidebar--secondary {
+    order: 1;
+    /* 우측 정렬 제거하고 좌측 목차 옆으로 */
+    margin-left: 0;
+  }
+  .md-content {
+    order: 2;
+    min-width: 0;
+  }
+  /* 두 사이드바 너비를 살짝 조정해 본문 공간 확보 */
+  .md-sidebar--secondary {
+    width: 11rem;
+  }
+}
