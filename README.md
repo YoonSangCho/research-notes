@@ -22,6 +22,9 @@
 | 13 | [Surrogate Modeling & Computational Cost](13.SurrogateModeling_and_ComputationalCost.md) | 대리모델 선택과 계산비용, TabPFN의 최적화 루프 한계, conformal 불확실성 |
 | 14 | [Causal Interpretation Pitfalls](14.CausalInterpretationPitfalls.md) | 상관≠인과 — 교란·Table 2 오류·역인과·collider, SHAP를 인과로 오해석하는 함정과 의료 사례 |
 | 15 | [Prediction & Optimization Algorithms](15.PredictionAndOptimizationAlgorithms.md) | 타이어 최적화에 쓰는 예측모델 15종·최적화 6종을 연도순·항별 수식·실인용으로 정리한 배경지식 교과서 |
+| 16 | [Statistical Testing](16.StatisticalTesting.md) | 의료데이터 통계검정 — 변수·가정별 검정 선택(t/Welch/Mann–Whitney/χ²/Fisher/Cochran–Armitage), 다중비교 보정, ROC·DeLong·보정·DCA, 내부/외부 검증과 TRIPOD |
+| 17 | [Predictive Modeling Methods](17.PredictiveModelingMethods.md) | 예측모델 — 선형·정규화·SVM/kNN·트리·배깅/RF·부스팅·MLP/CNN/Transformer·파운데이션/전이·멀티모달 융합을 목적함수·학습절차·수식으로 비교 |
+| 18 | [SHAP](18.SHAP.md) | 협력게임이론 Shapley 값·공리, SHAP 가법귀속, 주변 vs 조건부, Kernel/Tree/Deep/Linear 추정, 전역해석·상호작용, 의료 함정(인과 오독·상관·적대조작) |
 | — | [Vibe Coding](VibeCoding.md) | VS Code+Claude Code / Amazon Kiro 에이전트형 코딩 실습 가이드 |
 
 > 파일명 일부에 오타가 있으나(`Predicvti`, `Fairncess`, `Anaylsis`) 기존 링크·git 이력 보존을 위해 유지한다.
