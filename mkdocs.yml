@@ -1,0 +1,136 @@
+site_name: Research Notes
+site_description: 머신러닝·딥러닝 주제별 연구 노트 모음 (레퍼런스 + 교과서 수준 설명)
+site_author: YoonSang Cho
+site_url: https://yoonsangcho.github.io/research-notes/
+
+repo_url: https://github.com/YoonSangCho/research-notes
+repo_name: YoonSangCho/research-notes
+edit_uri: edit/main/
+
+# 마크다운 파일을 옮기지 않고 repo 루트를 그대로 문서 소스로 사용
+# (same-dir 플러그인이 docs_dir == mkdocs.yml 위치를 허용해 준다)
+docs_dir: .
+site_dir: site
+use_directory_urls: true
+
+theme:
+  name: material
+  language: ko
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.top
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: 다크 모드로 전환
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 라이트 모드로 전환
+
+nav:
+  - 홈: README.md
+  - 기초 · 예측 모델링:
+      - "00 · 의료데이터 예측 모델링 템플릿": 00.PredicvtiveModeling.md
+      - "17 · 예측 모델 방법론": 17.PredictiveModelingMethods.md
+      - "19 · 예측 모델 평가": 19.EvaluatingPredictionModels.md
+      - "05 · Boosting": 05.Boosting.md
+      - "16 · 통계 검정": 16.StatisticalTesting.md
+      - "18 · SHAP": 18.SHAP.md
+      - "14 · 인과 해석의 함정": 14.CausalInterpretationPitfalls.md
+  - 딥러닝 · 멀티모달:
+      - "01 · Multimodal Learning": 01.MultimodalLearning.md
+      - "02 · Large Language Models": 02.LargeLanguageModels.md
+      - "03 · Foundation Models": 03.FoundationModels.md
+      - "04 · Tabular Foundation Models": 04.TabularFoundationModels.md
+      - "10 · Diffusion Models": 10.DiffusionModels.md
+  - 분산 · 일반화 · 공정성:
+      - "06 · Federated Learning": 06.FederatedLearning.md
+      - "09 · Domain Generalization": 09.DomainGeneralization.md
+      - "08 · Fairness": 08.Fairncess.md
+      - "07 · Survival Analysis": 07.SurvivalAnaylsis.md
+  - 최적화 · 대리모델:
+      - "12 · Surrogate-Based Multi-Objective Optimization": 12.SurrogateBasedMultiObjectiveOptimization.md
+      - "13 · Surrogate Modeling & Computational Cost": 13.SurrogateModeling_and_ComputationalCost.md
+      - "15 · Prediction & Optimization Algorithms": 15.PredictionAndOptimizationAlgorithms.md
+  - 응용 프로젝트:
+      - "11 · BRCA Multimodal Foundation Models": 11.BRCA_Multimodal_Foundation_Models.md
+  - 기타:
+      - "Vibe Coding": VibeCoding.md
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+# 깨진 내부 링크는 빌드를 중단시키지 않고 경고만 (예: 아직 안 쓴 예정 노트 링크)
+validation:
+  links:
+    not_found: warn
+
+plugins:
+  - same-dir
+  - search:
+      lang:
+        - en
+
+extra_javascript:
+  - assets/mathjax-config.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+# 사이트 빌드 시 문서로 취급하지 않을 항목
+exclude_docs: |
+  .venv/
+  site/
+  requirements.txt
+  mkdocs.yml
+  assets/make_figures.py
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/YoonSangCho
