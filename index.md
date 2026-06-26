@@ -14,43 +14,43 @@ hide:
 
 <div class="grid cards" markdown>
 
--   :material-clipboard-text-outline:{ .lg .middle } &nbsp;**[1 · 예측 모델링 템플릿](00.PredicvtiveModeling.md)**
+-   :material-clipboard-text-outline:{ .lg .middle } &nbsp;**[(1) 예측 모델링 템플릿](00.PredicvtiveModeling.md)**
 
     ---
 
     데이터 유형별(정형·시계열·영상·텍스트·멀티모달) 모델 카탈로그 + 전처리·실험설계·평가·해석 치트시트
 
--   :material-sitemap-outline:{ .lg .middle } &nbsp;**[2 · 예측 모델 방법론](17.PredictiveModelingMethods.md)**
+-   :material-sitemap-outline:{ .lg .middle } &nbsp;**[(2) 예측 모델 방법론](17.PredictiveModelingMethods.md)**
 
     ---
 
     선형·정규화·SVM/kNN·트리·배깅/RF·부스팅·MLP/CNN/Transformer·파운데이션·멀티모달 융합을 목적함수·수식으로 비교
 
--   :material-check-decagram-outline:{ .lg .middle } &nbsp;**[3 · 예측 모델 평가](19.EvaluatingPredictionModels.md)**
+-   :material-check-decagram-outline:{ .lg .middle } &nbsp;**[(3) 예측 모델 평가](19.EvaluatingPredictionModels.md)**
 
     ---
 
     부트스트랩 CI·사전지정 비교(선택편향)·DeLong·Bonferroni·보정(ECE/Brier)·DCA·macro-AUROC·TRIPOD+AI/CLAIM
 
--   :material-chart-line:{ .lg .middle } &nbsp;**[4 · Boosting](05.Boosting.md)**
+-   :material-chart-line:{ .lg .middle } &nbsp;**[(4) Boosting](05.Boosting.md)**
 
     ---
 
     AdaBoost → GBM → XGBoost / LightGBM / CatBoost 발전사와 핵심 수식·비교
 
--   :material-function-variant:{ .lg .middle } &nbsp;**[5 · 통계 검정](16.StatisticalTesting.md)**
+-   :material-function-variant:{ .lg .middle } &nbsp;**[(5) 통계 검정](16.StatisticalTesting.md)**
 
     ---
 
     변수·가정별 검정 선택(t/Welch/Mann–Whitney/χ²/Fisher), 다중비교 보정, ROC·DeLong·보정·DCA, 내부/외부 검증과 TRIPOD
 
--   :material-lightbulb-on-outline:{ .lg .middle } &nbsp;**[6 · SHAP](18.SHAP.md)**
+-   :material-lightbulb-on-outline:{ .lg .middle } &nbsp;**[(6) SHAP](18.SHAP.md)**
 
     ---
 
     협력게임이론 Shapley 값·공리, 가법귀속, 주변 vs 조건부, Kernel/Tree/Deep/Linear 추정, 의료 해석 함정
 
--   :material-alert-octagon-outline:{ .lg .middle } &nbsp;**[7 · 인과 해석의 함정](14.CausalInterpretationPitfalls.md)**
+-   :material-alert-octagon-outline:{ .lg .middle } &nbsp;**[(7) 인과 해석의 함정](14.CausalInterpretationPitfalls.md)**
 
     ---
 
@@ -62,37 +62,37 @@ hide:
 
 <div class="grid cards" markdown>
 
--   :material-vector-combine:{ .lg .middle } &nbsp;**[8 · Multimodal Learning](01.MultimodalLearning.md)**
+-   :material-vector-combine:{ .lg .middle } &nbsp;**[(1) Multimodal Learning](01.MultimodalLearning.md)**
 
     ---
 
     멀티모달 기초·융합·파운데이션 모델 + 정보이론·모달리티 갭·최적수송 등 심화 이론
 
--   :material-message-text-outline:{ .lg .middle } &nbsp;**[9 · Large Language Models](02.LargeLanguageModels.md)**
+-   :material-message-text-outline:{ .lg .middle } &nbsp;**[(2) Large Language Models](02.LargeLanguageModels.md)**
 
     ---
 
     언어모델 기초, 트랜스포머, 스케일링, RLHF/DPO, RAG, PEFT(LoRA), 멀티모달 LLM
 
--   :material-book-open-page-variant-outline:{ .lg .middle } &nbsp;**[10 · Text Mining → Transformers → LLM](20.TextMiningToTransformersLLM.md)**
+-   :material-book-open-page-variant-outline:{ .lg .middle } &nbsp;**[(3) Text Mining → Transformers → LLM](20.TextMiningToTransformersLLM.md)**
 
     ---
 
     비전공자용 — 빈도(TF-IDF) → 의미(word2vec) → 문맥(어텐션 Q·K·V 항별 풀이) → LLM, 토크나이저, 의료 NLP
 
--   :material-earth:{ .lg .middle } &nbsp;**[11 · Foundation Models](03.FoundationModels.md)**
+-   :material-earth:{ .lg .middle } &nbsp;**[(4) Foundation Models](03.FoundationModels.md)**
 
     ---
 
     파운데이션 모델의 정의와 데이터 타입별·산업별 지형도
 
--   :material-table-large:{ .lg .middle } &nbsp;**[12 · Tabular Foundation Models](04.TabularFoundationModels.md)**
+-   :material-table-large:{ .lg .middle } &nbsp;**[(5) Tabular Foundation Models](04.TabularFoundationModels.md)**
 
     ---
 
     정형 데이터 딥러닝의 난점과 TabPFN 계열 in-context 학습 패러다임
 
--   :material-blur:{ .lg .middle } &nbsp;**[13 · Diffusion Models](10.DiffusionModels.md)**
+-   :material-blur:{ .lg .middle } &nbsp;**[(6) Diffusion Models](10.DiffusionModels.md)**
 
     ---
 
@@ -104,25 +104,25 @@ hide:
 
 <div class="grid cards" markdown>
 
--   :material-lan:{ .lg .middle } &nbsp;**[14 · Federated Learning](06.FederatedLearning.md)**
+-   :material-lan:{ .lg .middle } &nbsp;**[(1) Federated Learning](06.FederatedLearning.md)**
 
     ---
 
     FedAvg/FedProx/SCAFFOLD 등 최적화, Non-IID, 프라이버시(DP·secure agg·gradient leakage)
 
--   :material-transit-connection-variant:{ .lg .middle } &nbsp;**[15 · Domain Generalization](09.DomainGeneralization.md)**
+-   :material-transit-connection-variant:{ .lg .middle } &nbsp;**[(2) Domain Generalization](09.DomainGeneralization.md)**
 
     ---
 
     DG/DA/OOD 구분, 도메인 이동 유형, DANN·CORAL·IRM·GroupDRO, DomainBed
 
--   :material-scale-balance:{ .lg .middle } &nbsp;**[16 · Fairness](08.Fairncess.md)**
+-   :material-scale-balance:{ .lg .middle } &nbsp;**[(3) Fairness](08.Fairncess.md)**
 
     ---
 
     공정성 지표(DP·EO·calibration), 불가능성 정리, pre/in/post-processing 완화 기법
 
--   :material-heart-pulse:{ .lg .middle } &nbsp;**[17 · Survival Analysis](07.SurvivalAnaylsis.md)**
+-   :material-heart-pulse:{ .lg .middle } &nbsp;**[(4) Survival Analysis](07.SurvivalAnaylsis.md)**
 
     ---
 
@@ -134,19 +134,19 @@ hide:
 
 <div class="grid cards" markdown>
 
--   :material-target:{ .lg .middle } &nbsp;**[18 · Surrogate-Based Multi-Objective Optimization](12.SurrogateBasedMultiObjectiveOptimization.md)**
+-   :material-target:{ .lg .middle } &nbsp;**[(1) Surrogate-Based Multi-Objective Optimization](12.SurrogateBasedMultiObjectiveOptimization.md)**
 
     ---
 
     파레토 지배·하이퍼볼륨, 베이지안 최적화(qEHVI·qNEHVI·qParEGO), 제약 처리 — 다목적 공학 설계 예시
 
--   :material-speedometer:{ .lg .middle } &nbsp;**[19 · Surrogate Modeling & Computational Cost](13.SurrogateModeling_and_ComputationalCost.md)**
+-   :material-speedometer:{ .lg .middle } &nbsp;**[(2) Surrogate Modeling & Computational Cost](13.SurrogateModeling_and_ComputationalCost.md)**
 
     ---
 
     대리모델 선택과 계산비용 트레이드오프, TabPFN의 최적화 루프 한계, conformal 불확실성
 
--   :material-format-list-numbered:{ .lg .middle } &nbsp;**[20 · Prediction & Optimization Algorithms](15.PredictionAndOptimizationAlgorithms.md)**
+-   :material-format-list-numbered:{ .lg .middle } &nbsp;**[(3) Prediction & Optimization Algorithms](15.PredictionAndOptimizationAlgorithms.md)**
 
     ---
 
@@ -158,13 +158,13 @@ hide:
 
 <div class="grid cards" markdown>
 
--   :material-image-multiple-outline:{ .lg .middle } &nbsp;**[21 · BRCA Multimodal Foundation Models](11.BRCA_Multimodal_Foundation_Models.md)** &nbsp;*(작성 중)*
+-   :material-image-multiple-outline:{ .lg .middle } &nbsp;**[(1) BRCA Multimodal Foundation Models](11.BRCA_Multimodal_Foundation_Models.md)** &nbsp;*(작성 중)*
 
     ---
 
     유방 MRI 기반 BRCA 변이 예측을 예시로, 라디오믹스부터 멀티모달 파운데이션 모델까지 비교하는 실험 설계
 
--   :material-laptop:{ .lg .middle } &nbsp;**[22 · Vibe Coding](VibeCoding.md)**
+-   :material-laptop:{ .lg .middle } &nbsp;**[(2) Vibe Coding](VibeCoding.md)**
 
     ---
 

@@ -49,32 +49,32 @@ theme:
 nav:
   - 홈: index.md
   - 1. 예측모델:
-      - "1 · 예측 모델링 템플릿": 00.PredicvtiveModeling.md
-      - "2 · 예측 모델 방법론": 17.PredictiveModelingMethods.md
-      - "3 · 예측 모델 평가": 19.EvaluatingPredictionModels.md
-      - "4 · Boosting": 05.Boosting.md
-      - "5 · 통계 검정": 16.StatisticalTesting.md
-      - "6 · SHAP": 18.SHAP.md
-      - "7 · 인과 해석의 함정": 14.CausalInterpretationPitfalls.md
+      - "(1) 예측 모델링 템플릿": 00.PredicvtiveModeling.md
+      - "(2) 예측 모델 방법론": 17.PredictiveModelingMethods.md
+      - "(3) 예측 모델 평가": 19.EvaluatingPredictionModels.md
+      - "(4) Boosting": 05.Boosting.md
+      - "(5) 통계 검정": 16.StatisticalTesting.md
+      - "(6) SHAP": 18.SHAP.md
+      - "(7) 인과 해석의 함정": 14.CausalInterpretationPitfalls.md
   - 2. 딥러닝 및 멀티모달:
-      - "8 · Multimodal Learning": 01.MultimodalLearning.md
-      - "9 · Large Language Models": 02.LargeLanguageModels.md
-      - "10 · Text Mining → Transformers → LLM": 20.TextMiningToTransformersLLM.md
-      - "11 · Foundation Models": 03.FoundationModels.md
-      - "12 · Tabular Foundation Models": 04.TabularFoundationModels.md
-      - "13 · Diffusion Models": 10.DiffusionModels.md
+      - "(1) Multimodal Learning": 01.MultimodalLearning.md
+      - "(2) Large Language Models": 02.LargeLanguageModels.md
+      - "(3) Text Mining → Transformers → LLM": 20.TextMiningToTransformersLLM.md
+      - "(4) Foundation Models": 03.FoundationModels.md
+      - "(5) Tabular Foundation Models": 04.TabularFoundationModels.md
+      - "(6) Diffusion Models": 10.DiffusionModels.md
   - 3. 인공지능 신뢰성:
-      - "14 · Federated Learning": 06.FederatedLearning.md
-      - "15 · Domain Generalization": 09.DomainGeneralization.md
-      - "16 · Fairness": 08.Fairncess.md
-      - "17 · Survival Analysis": 07.SurvivalAnaylsis.md
+      - "(1) Federated Learning": 06.FederatedLearning.md
+      - "(2) Domain Generalization": 09.DomainGeneralization.md
+      - "(3) Fairness": 08.Fairncess.md
+      - "(4) Survival Analysis": 07.SurvivalAnaylsis.md
   - 4. 최적화 및 대리모델:
-      - "18 · Surrogate-Based Multi-Objective Optimization": 12.SurrogateBasedMultiObjectiveOptimization.md
-      - "19 · Surrogate Modeling & Computational Cost": 13.SurrogateModeling_and_ComputationalCost.md
-      - "20 · Prediction & Optimization Algorithms": 15.PredictionAndOptimizationAlgorithms.md
+      - "(1) Surrogate-Based Multi-Objective Optimization": 12.SurrogateBasedMultiObjectiveOptimization.md
+      - "(2) Surrogate Modeling & Computational Cost": 13.SurrogateModeling_and_ComputationalCost.md
+      - "(3) Prediction & Optimization Algorithms": 15.PredictionAndOptimizationAlgorithms.md
   - 5. 산업응용:
-      - "21 · BRCA Multimodal Foundation Models": 11.BRCA_Multimodal_Foundation_Models.md
-      - "22 · Vibe Coding": VibeCoding.md
+      - "(1) BRCA Multimodal Foundation Models": 11.BRCA_Multimodal_Foundation_Models.md
+      - "(2) Vibe Coding": VibeCoding.md
 
 markdown_extensions:
   - abbr
