@@ -172,6 +172,48 @@ hide:
 
 </div>
 
+## 6. 기초의학 (중개의학 가교)
+
+<div class="grid cards" markdown>
+
+-   :material-dna:{ .lg .middle } &nbsp;**[(1) 분자생물학 · 중심원리 & 오믹스](21.MolecularBiologyAndOmics.md)**
+
+    ---
+
+    중심원리(복제·전사·번역), 변이·후성유전, 시퀀싱·depth, 오믹스 계층과 RNA-seq 정규화(TPM/CPM) — 유전체/단백질 파운데이션 모델로 연결
+
+-   :material-microscope:{ .lg .middle } &nbsp;**[(2) 유전체학 · 정밀의학](22.GenomicsAndPrecisionMedicine.md)**
+
+    ---
+
+    Hardy-Weinberg·GWAS(5×10⁻⁸)·LD·유전율·PRS, 약물유전체·ACMG 변이해석 — 집단구조=교란을 인과 함정과 연결
+
+-   :material-shield-account-outline:{ .lg .middle } &nbsp;**[(3) 세포신호전달 · 면역학](23.CellSignalingAndImmunology.md)**
+
+    ---
+
+    GPCR/RTK·MAPK·PI3K-AKT, 수용체 결합(K_d·Hill), 세포자멸사, 면역계·MHC·면역관문(PD-1/CTLA-4)
+
+-   :material-sine-wave:{ .lg .middle } &nbsp;**[(4) 생리학 · 생체신호](24.PhysiologyAndBiosignals.md)**
+
+    ---
+
+    항상성·피드백, Nernst·Hodgkin-Huxley, 심박출량·ECG, GFR·청소율 — ECG/EEG/PPG 생체신호를 시계열 모델로 연결
+
+-   :material-biohazard:{ .lg .middle } &nbsp;**[(5) 병리 · 발암생물학](25.PathologyAndCancerBiology.md)**
+
+    ---
+
+    세포손상·염증·신생물(등급/병기 TNM), 종양유전자·억제유전자·Knudson 2-hit, Hallmarks of Cancer, Gompertzian 성장
+
+-   :material-pill:{ .lg .middle } &nbsp;**[(6) 약리학 · PK/PD](26.PharmacologyAndPKPD.md)**
+
+    ---
+
+    용량반응 Emax/Hill·치료지수, ADME·1차 소실·반감기·청소율·분포용적, 구획모델 — 용량 최적화를 대리모델 최적화와 연결
+
+</div>
+
 ---
 
 !!! note "이 사이트에 대하여"

@@ -75,6 +75,13 @@ nav:
   - 5. 산업응용:
       - "(1) BRCA Multimodal Foundation Models": 11.BRCA_Multimodal_Foundation_Models.md
       - "(2) Vibe Coding": VibeCoding.md
+  - 6. 기초의학 (중개의학 가교):
+      - "(1) 분자생물학 · 중심원리 & 오믹스": 21.MolecularBiologyAndOmics.md
+      - "(2) 유전체학 · 정밀의학": 22.GenomicsAndPrecisionMedicine.md
+      - "(3) 세포신호전달 · 면역학": 23.CellSignalingAndImmunology.md
+      - "(4) 생리학 · 생체신호": 24.PhysiologyAndBiosignals.md
+      - "(5) 병리 · 발암생물학": 25.PathologyAndCancerBiology.md
+      - "(6) 약리학 · PK/PD": 26.PharmacologyAndPKPD.md
 
 markdown_extensions:
   - abbr

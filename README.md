@@ -27,6 +27,12 @@
 | 18 | [SHAP](18.SHAP.md) | 협력게임이론 Shapley 값·공리, SHAP 가법귀속, 주변 vs 조건부, Kernel/Tree/Deep/Linear 추정, 전역해석·상호작용, 의료 함정(인과 오독·상관·적대조작) |
 | 19 | [Evaluating Prediction Models](19.EvaluatingPredictionModels.md) | 논문 "Statistical analysis" 단락 해부 — 부트스트랩 CI·사전지정 비교(선택편향)·DeLong·Bonferroni·보정(ECE/Brier)·DCA·macro-AUROC·민감도분석(ComBat/nested CV)·TRIPOD+AI/CLAIM |
 | 20 | [Text Mining → Transformers → LLM](20.TextMiningToTransformersLLM.md) | 비전공자용 — 빈도(TF-IDF)→의미(word2vec)→문맥(트랜스포머 Q·K·V 색상·항별 풀이)→LLM, 토크나이저 종류(BPE/WordPiece/Unigram/SentencePiece), 어텐션의 변수선택 응용, 의료 NLP(BioBERT/Med-PaLM) |
+| 21 | [Molecular Biology & Omics](21.MolecularBiologyAndOmics.md) | 중심원리(복제·전사·번역), 변이·후성유전, 시퀀싱·depth, 오믹스 계층·RNA-seq 정규화(TPM/CPM) — 유전체/단백질 FM 가교 |
+| 22 | [Genomics & Precision Medicine](22.GenomicsAndPrecisionMedicine.md) | Hardy-Weinberg·GWAS·LD·유전율·PRS, 약물유전체·ACMG 변이해석 — 집단구조=교란을 인과 함정과 연결 |
+| 23 | [Cell Signaling & Immunology](23.CellSignalingAndImmunology.md) | GPCR/RTK·MAPK·PI3K-AKT, 수용체 결합(K_d·Hill), 세포자멸사, 면역계·MHC·면역관문(PD-1/CTLA-4) |
+| 24 | [Physiology & Biosignals](24.PhysiologyAndBiosignals.md) | 항상성·피드백, Nernst·Hodgkin-Huxley, 심박출량·ECG, GFR·청소율 — 생체신호(ECG/EEG/PPG)를 시계열로 연결 |
+| 25 | [Pathology & Cancer Biology](25.PathologyAndCancerBiology.md) | 세포손상·염증·신생물(등급/병기), 종양유전자·억제유전자·Knudson 2-hit, Hallmarks of Cancer, Gompertzian 성장 |
+| 26 | [Pharmacology & PK/PD](26.PharmacologyAndPKPD.md) | 용량반응 Emax/Hill·치료지수, ADME·반감기·청소율·분포용적·구획모델 — 용량 최적화를 대리모델 최적화와 연결 |
 | — | [Vibe Coding](VibeCoding.md) | VS Code+Claude Code / Amazon Kiro 에이전트형 코딩 실습 가이드 |
 
 > 파일명 일부에 오타가 있으나(`Predicvti`, `Fairncess`, `Anaylsis`) 기존 링크·git 이력 보존을 위해 유지한다.
